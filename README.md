@@ -34,4 +34,4 @@ All data used in this repository is synthetic or anonymised. No confidential or 
 ## Author
 Rashi Chandel  
 MSc Applied Data Science (UK)  
-LinkedIn: https://www.linkedin.com/in/your-link  
+Due to data privacy considerations, this repository does not include real datasets. The code is designed to operate on structured workforce data with fields such as tenure, role level, performance metrics, and absence history.
