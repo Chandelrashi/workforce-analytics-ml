@@ -1,0 +1,13 @@
+feature,importance
+absenteeism_days,0.12475614579479587
+role_level_Senior,0.10047151287858777
+monthly_salary,0.047787105932327566
+department_Finance,0.02758481269890187
+role_level_Mid,-0.0451290653535247
+gender_Male,-0.11830970118160845
+department_HR,-0.17884898742137012
+role_level_Lead,-0.21138663909325342
+department_Operations,-0.21899021348921893
+department_Sales,-0.4090678767428066
+tenure_years,-0.8151024310745448
+performance_rating,-0.8818756866273534
