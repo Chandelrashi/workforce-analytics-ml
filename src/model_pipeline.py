@@ -19,7 +19,6 @@ DATA_PATH = PROJECT_ROOT / "data" / "sample_data.csv"
 ASSETS_DIR = PROJECT_ROOT / "assets"
 ASSETS_DIR.mkdir(exist_ok=True)
 
-
 CAT_COLS = ["gender", "department", "role_level"]
 DROP_COLS = ["employee_id", "attrition"]
 
@@ -73,11 +72,15 @@ def evaluate_model(name, model, X_train, y_train, X_test, y_test, preprocessor):
 
 
 def save_feature_importance(pipe, num_cols, filename: Path):
-    # For Logistic Regression and RandomForest we can extract importance
+    """
+    Saves model coefficients / feature importances to CSV.
+    - Logistic Regression -> coef_
+    - Random Forest -> feature_importances_
+    """
     model = pipe.named_steps["model"]
     pre = pipe.named_steps["preprocess"]
 
-    # Build feature names
+    # Build feature names: OHE categorical + numeric cols
     ohe = pre.named_transformers_["cat"]
     cat_names = list(ohe.get_feature_names_out(CAT_COLS))
     feat_names = cat_names + num_cols
@@ -100,10 +103,23 @@ def save_feature_importance(pipe, num_cols, filename: Path):
 
 
 def plot_roc_curves(pipes, X_test, y_test, outpath: Path):
-    plt.figure()
+    """
+    Saves a publication-ready ROC plot comparing all fitted pipelines in `pipes`.
+    """
+    plt.figure(figsize=(8, 6))
+
     for name, pipe in pipes.items():
         RocCurveDisplay.from_estimator(pipe, X_test, y_test, name=name)
-    plt.savefig(outpath, bbox_inches="tight")
+
+    # Chance line
+    plt.plot([0, 1], [0, 1], linestyle="--", label="Chance (AUC = 0.50)")
+
+    plt.title("ROC Curve – Workforce Attrition Prediction")
+    plt.xlabel("False Positive Rate (1 − Specificity)")
+    plt.ylabel("True Positive Rate (Sensitivity)")
+    plt.legend(loc="lower right")
+
+    plt.savefig(outpath, bbox_inches="tight", dpi=300)
     plt.close()
 
 
@@ -117,10 +133,13 @@ def main():
 
     preprocessor = make_preprocessor(num_cols)
 
+    # Nicer names for plots + README
     models = {
-        "LogisticRegression": LogisticRegression(max_iter=1000),
-        "RandomForest": RandomForestClassifier(
-            n_estimators=300, random_state=42, class_weight="balanced"
+        "Logistic Regression": LogisticRegression(max_iter=1000),
+        "Random Forest": RandomForestClassifier(
+            n_estimators=300,
+            random_state=42,
+            class_weight="balanced"
         ),
     }
 
@@ -135,10 +154,13 @@ def main():
         pipes[name] = pipe
 
         save_feature_importance(
-            pipe, num_cols, ASSETS_DIR / f"{name}_feature_importance.csv"
+            pipe,
+            num_cols,
+            ASSETS_DIR / f"{name.replace(' ', '_')}_feature_importance.csv"
         )
 
-    plot_roc_curves(pipes, X_test, y_test, ASSETS_DIR / "roc_curve.png")
+    # IMPORTANT: saves as "ROC CURVE.png" exactly (with space)
+    plot_roc_curves(pipes, X_test, y_test, ASSETS_DIR / "ROC CURVE.png")
 
     summary = {
         "n_rows": int(df.shape[0]),
@@ -157,6 +179,12 @@ def main():
             f"Test ROC-AUC {r['test_roc_auc']:.3f}, "
             f"Test PR-AUC {r['test_pr_auc']:.3f}"
         )
+
+    print("\nSaved artifacts to:")
+    print(f"- {ASSETS_DIR / 'ROC CURVE.png'}")
+    print(f"- {ASSETS_DIR / 'results.json'}")
+    print(f"- {ASSETS_DIR / 'Logistic_Regression_feature_importance.csv'}")
+    print(f"- {ASSETS_DIR / 'Random_Forest_feature_importance.csv'}")
 
 
 if __name__ == "__main__":
