@@ -1,0 +1,24 @@
+{
+  "n_rows": 1000,
+  "attrition_rate": 0.305,
+  "results": [
+    {
+      "model": "Logistic Regression",
+      "cv_roc_auc_mean": 0.7644932719709505,
+      "cv_roc_auc_std": 0.03852219190267193,
+      "cv_pr_auc_mean": 0.5806026332002452,
+      "cv_pr_auc_std": 0.06020437514217247,
+      "test_roc_auc": 0.766481896450053,
+      "test_pr_auc": 0.6285601233926744
+    },
+    {
+      "model": "Random Forest",
+      "cv_roc_auc_mean": 0.8056760204081632,
+      "cv_roc_auc_std": 0.026681646463193202,
+      "cv_pr_auc_mean": 0.5926635263695331,
+      "cv_pr_auc_std": 0.03571873581373821,
+      "test_roc_auc": 0.849038801745489,
+      "test_pr_auc": 0.7023086023803131
+    }
+  ]
+}
