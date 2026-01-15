@@ -11,14 +11,14 @@ data = {
     "gender": np.random.choice(["Male", "Female"], size=N, p=[0.55, 0.45]),
     "department": np.random.choice(
         ["Engineering", "Sales", "HR", "Finance", "Operations"],
-        size=N,
+    xsize=N,
         p=[0.35, 0.25, 0.1, 0.15, 0.15]
     ),
     "role_level": np.random.choice(
         ["Junior", "Mid", "Senior", "Lead"],
         size=N,
         p=[0.3, 0.4, 0.2, 0.1]
-    ),
+    )
     "tenure_years": np.round(np.random.exponential(scale=4, size=N), 1),
     "performance_rating": np.random.randint(1, 6, size=N),
     "absenteeism_days": np.random.poisson(lam=5, size=N),
