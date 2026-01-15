@@ -109,3 +109,6 @@ Related work includes:
 - Book: *Applied AI for Data-Driven Decision Making*
 - Research and applied analytics publications
 
+## Model Performance – ROC Curve
+
+![ROC Curve](assets/ROC_CURVE.png)
