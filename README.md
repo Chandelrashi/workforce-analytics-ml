@@ -71,9 +71,13 @@ The emphasis is on **practical deployment of AI**, not academic modelling alone.
 ## Project Structure
 workforce-analytics-ml/
 │
+
 ├── src/ # Core Python scripts
+
 ├── README.md # Project documentation
+
 ├── requirements.txt # Python dependencies
+
 └── assets/ # Visuals (charts, model outputs)
 
 ---
