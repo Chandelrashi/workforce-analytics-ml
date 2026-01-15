@@ -111,4 +111,4 @@ Related work includes:
 
 ## Model Performance – ROC Curve
 
-![ROC Curve](assets/ROC_CURVE.png)
+![ROC Curve](src/ROC_CURVE.png)
